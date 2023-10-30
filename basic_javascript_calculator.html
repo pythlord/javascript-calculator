@@ -1,0 +1,71 @@
+<html>
+  <head>
+    <title>JavaScript Calculator</title></head>
+  <body>
+    <div class="calculator">
+      <input type="text" id="result" readonly />
+      <div class="button-row">
+        <button onclick="appendToResult('1')">1</button>
+        <button onclick="appendToResult('2')">2</button>
+        <button onclick="appendToResult('3')">3</button>
+        <button onclick="appendToResult('+')">+</button>
+      </div>
+      <div class="button-row">
+        <button onclick="appendToResult('4')">4</button>
+        <button onclick="appendToResult('5')">5</button>
+        <button onclick="appendToResult('6')">6</button>
+        <button onclick="appendToResult('-')">-</button>
+      </div>
+      <div class="button-row">
+        <button onclick="appendToResult('7')">7</button>
+        <button onclick="appendToResult('8')">8</button>
+        <button onclick="appendToResult('9')">9</button>
+        <button onclick="appendToResult('*')">*</button>
+      </div>
+      <div class="button-row">
+        <button onclick="appendToResult('0')">0</button>
+        <button onclick="appendToResult('.')">.</button>
+        <button onclick="clearResult()">C</button>
+        <button onclick="calculate()">=</button>
+        <button onclick="appendToResult('/')">/</button>
+      </div>
+    </div>
+
+    <script>
+      //the calcDone variable will keep track of state
+      //the purpose is to be able to start another calculation
+      //without having to press the C (Clear) button
+      //this will be less annoying for users that have
+      //many calculations to perform 
+      var calcDone = false; 
+      function appendToResult(value) {
+        if (calcDone == true) {
+          var result = document.getElementById("result");
+          result.value = "";
+          calcDone = false; 
+        }
+        var result = document.getElementById("result");
+        result.value += value;
+      }
+
+      function clearResult() {
+        var result = document.getElementById("result");
+        result.value = "";
+      }
+
+      function calculate() {
+        
+        var result = document.getElementById("result");
+        var expression = result.value;
+
+        try {
+          result.value = eval(expression);
+        } catch (error) {
+          result.value = "Error";
+        } finally {
+          calcDone = true; 
+        }
+      }
+    </script>
+  </body>
+</html>
